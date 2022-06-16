@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from devito import Operator, Function, dimensions
+from devito import SpaceDimension, Operator, Function, dimensions
 from joey import Activation
 from joey import activation as activ
 from numpy import array
@@ -22,7 +22,9 @@ def default_dim_allocator(count):
         names += 'd' + str(dim_index) + ' '
         dim_index += 1
     names = names[:-1]
-    return dimensions(names)
+    #Grid requires a SpaceDimensio Type
+    dim = tuple(SpaceDimension(i) for i in names.split())
+    return dim
 
 
 class Layer(ABC):
